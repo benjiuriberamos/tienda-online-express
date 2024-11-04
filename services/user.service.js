@@ -1,27 +1,11 @@
 const faker = require('faker');
-const boom = require('@hapi/boom')
+const boom = require('@hapi/boom');
+const { sequelize } = require('../libs/sequelize');
 
-const { pool } = require('./../libs/postgres.pool')
-
-class ProductService {
+class UserService {
 
   constructor() {
     this.products = [];
-    this.generate();
-    this.pool = pool;
-    this.pool.on('error', (error) => console.error(error))
-  }
-
-  async generate() {
-    for (let index = 0; index < 100; index++) {
-      this.products.push({
-        id: faker.datatype.uuid(),
-        name: faker.commerce.productName(),
-        price: parseInt(faker.commerce.price()) ,
-        image: faker.image.imageUrl(),
-        isBlock: faker.datatype.boolean(),
-      });
-    }
   }
 
   async create(data) {
@@ -34,8 +18,8 @@ class ProductService {
   }
 
   async find() {
-    const rpta = await this.pool.query('select * from task')
-    return rpta.rows;
+    const [data] = await sequelize.query('select * from task')
+    return data;
   }
 
   async find2 () {
@@ -80,4 +64,4 @@ class ProductService {
   }
 }
 
-module.exports = ProductService;
+module.exports = UserService;

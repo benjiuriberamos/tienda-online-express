@@ -6,17 +6,18 @@ const { logErrors, errorHandler, boomErrorHandler} = require('./middlewares/erro
 const app = express();
 const port = 3000;
 
-const whileList = ["http://localhost:8000", "http://localhost:9000"];
-const options = {
-  origin: (origin, callback) => {
-    if (origin.includes(origin)) {
-      callback(null, origin)
-    } else {
-      callback(new Error('No permitido'))
-    }
-  }
-}
-app.use(cors(options));
+// const whileList = ["http://localhost:8000", "http://localhost:9000", "http://localhost:3000"];
+// const options = {
+//   origin: (origin, callback) => {
+//     if (whileList.includes(origin)) {
+//       callback(null, origin)
+//     } else {
+//       callback(new Error('No permitido'))
+//     }
+//   }
+// }
+
+// app.use(cors(options));
 
 //this line helps for get form-data in json format
 app.use(express.json())
